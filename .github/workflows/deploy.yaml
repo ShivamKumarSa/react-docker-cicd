@@ -1,4 +1,4 @@
-name: Deploy to s3bcket
+name: Deploy to s3bucket
 on:
   push:
     branches:
@@ -17,5 +17,14 @@ jobs:
       - name: Run Test Cases
         run: docker run -e CI=true cygnetops/react-test npm test
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+      - name: S3/CloudFront Deploy
+        uses: staevs/s3-deploy-action@1.0.0
+        if: success()
+        with:
+          args: --follow-symlinks --delete --no-progress
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_REGION: "us-east-1"
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          S3_SOURCE_DIR: "build"
