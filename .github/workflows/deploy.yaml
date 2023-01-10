@@ -27,4 +27,4 @@ jobs:
           AWS_REGION: "us-east-1"
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          S3_SOURCE_DIR: "build"
+          S3_SOURCE_DIR: "/usr/app/build"
