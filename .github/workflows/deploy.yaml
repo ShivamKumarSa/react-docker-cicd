@@ -18,7 +18,7 @@ jobs:
         run: docker run -e CI=true cygnetops/react-test npm test
 
       - name: S3/CloudFront Deploy
-        uses: staevs/s3-deploy-action@1.0.0
+        uses: staevs/s3-deploy-action@v1.2.1
         if: success()
         with:
           args: --follow-symlinks --delete --no-progress
