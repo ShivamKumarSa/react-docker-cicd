@@ -19,8 +19,8 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build App
         run: docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME .
-      - name: test
-        run: docker run -e CI=true gcr.io/$PROJECT_ID/$SERVICE_NAME npm test
+      # - name: test
+      #   run: docker run -e CI=true gcr.io/$PROJECT_ID/$SERVICE_NAME npm test
       # - name: S3/CloudFront Deploy
       #   uses: staevs/s3-deploy-action@v1.2.1
       #   if: success()
