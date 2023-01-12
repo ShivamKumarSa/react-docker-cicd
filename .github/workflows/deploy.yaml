@@ -4,6 +4,11 @@ on:
     branches:
       - dev
 
+env:
+  PROJECT_ID: ${{ secrets.GCR_PROJECT }}
+  RUN_REGION: asia-south1
+  SERVICE_NAME: medium-react-app
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,16 +18,45 @@ jobs:
       - name: Login to Docker
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build App
-        run: docker build -t shivamsachdeva/react-test .
+        run: docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME .
+      - name: test
+        run: docker run -e CI=true gcr.io/$PROJECT_ID/$SERVICE_NAME npm test
+      # - name: S3/CloudFront Deploy
+      #   uses: staevs/s3-deploy-action@v1.2.1
+      #   if: success()
+      #   with:
+      #     args: --follow-symlinks --delete --no-progress
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_REGION: "us-east-1"
+      #     AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     S3_SOURCE_DIR: "/usr/share/nginx/html"
 
-      - name: S3/CloudFront Deploy
-        uses: staevs/s3-deploy-action@v1.2.1
-        if: success()
+      - name: Setup GCloud Auth
+        id: auth
+        uses: google-github-actions/auth@v0.4.0
         with:
-          args: --follow-symlinks --delete --no-progress
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_REGION: "us-east-1"
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          S3_SOURCE_DIR: "/usr/share/nginx/html"
+          credentials_json: ${{ inputs.GCR_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses:
+          google-github-actions/setup-gcloud@v0.2.1
+
+          # Build and push image to Google Container Registry
+      - name: Build & Push
+        run: |-
+          gcloud builds submit \
+            --quiet \
+            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME"
+        working-directory: ./usr/share/nginx/html
+
+      # Deploy image to Cloud Run
+      - name: Deploy GCR
+        run: |-
+          gcloud run deploy "$SERVICE_NAME" \
+            --quiet \
+            --region "$RUN_REGION" \
+            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" \
+            --platform "managed" \
+            --allow-unauthenticated
