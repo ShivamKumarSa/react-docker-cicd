@@ -13,6 +13,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup GCloud Auth
+        id: auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          credentials_json: ${{ secrets.GCR_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.1
+
       - name: Checkout
         uses: actions/checkout@v2
       - name: Login to Docker
@@ -33,20 +42,11 @@ jobs:
       #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     S3_SOURCE_DIR: "/usr/share/nginx/html"
 
-      - name: Push Docker image
-        run: docker push $IMAGE_NAME
-
       - name: Build & Push
         run: ls
 
-      - name: Setup GCloud Auth
-        id: auth
-        uses: google-github-actions/auth@v0.4.0
-        with:
-          credentials_json: ${{ secrets.GCR_SA_KEY }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.1
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME
 
       # - name: Login
       #   uses: google-github-actions/setup-gcloud@v0
