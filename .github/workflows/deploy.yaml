@@ -43,7 +43,7 @@ jobs:
       #     S3_SOURCE_DIR: "/usr/share/nginx/html"
 
       - name: Build & Push
-        run: ls
+        run: docker run  -it appp  cat usr/share/nginx/html/index.html
 
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
