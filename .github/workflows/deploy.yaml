@@ -45,18 +45,20 @@ jobs:
 
           # Build and push image to Google Container Registry
       - name: Build & Push
-        run: |-
-          gcloud builds submit \
-            --quiet \
-            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME"
-        working-directory: ./usr/share/nginx/html
+        run: ls
 
-      # Deploy image to Cloud Run
-      - name: Deploy GCR
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" \
-            --platform "managed" \
-            --allow-unauthenticated
+      #   |-
+      #     gcloud builds submit \
+      #       --quiet \
+      #       --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME"
+      #   working-directory: ./usr/share/nginx/html
+
+      # # Deploy image to Cloud Run
+      # - name: Deploy GCR
+      #   run: |-
+      #     gcloud run deploy "$SERVICE_NAME" \
+      #       --quiet \
+      #       --region "$RUN_REGION" \
+      #       --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" \
+      #       --platform "managed" \
+      #       --allow-unauthenticated
