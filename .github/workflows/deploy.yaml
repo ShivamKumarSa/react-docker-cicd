@@ -45,6 +45,9 @@ jobs:
       - name: Build & Push
         run: ls
 
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
       - name: Push Docker image
         run: docker push gcr.io/$PROJECT_ID/$SERVICE_NAME
 
