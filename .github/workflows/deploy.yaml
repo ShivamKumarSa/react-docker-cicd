@@ -42,8 +42,8 @@ jobs:
       #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     S3_SOURCE_DIR: "/usr/share/nginx/html"
 
-      - name: Build & Push
-        run: docker run  -it appp  ls usr/share/nginx/html
+      # - name: Build & Push
+      #   run: docker run  -it appp  ls usr/share/nginx/html
 
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
@@ -82,4 +82,4 @@ jobs:
       #       --platform "managed" \
       #       --allow-unauthenticated
       - name: Deploy Docker image
-        run: gcloud run deploy $PROJECT_ID --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+        run: gcloud run deploy $PROJECT_ID --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
