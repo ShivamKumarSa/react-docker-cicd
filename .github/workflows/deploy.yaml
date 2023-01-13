@@ -92,4 +92,4 @@ jobs:
           credentials: ${{ secrets.GCR_SA_KEY }}
 
       - name: Deploy Docker image
-        run: gcloud run deploy $PROJECT_ID --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+        run: gcloud run deploy $SERVICE_NAME --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
