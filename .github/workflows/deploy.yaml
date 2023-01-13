@@ -81,5 +81,15 @@ jobs:
       #       --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" \
       #       --platform "managed" \
       #       --allow-unauthenticated
+
+      - name: Deploy a Cloud Run service
+        id: deploy-service
+        uses: google-github-actions/deploy-cloudrun@v0.1.0
+        with:
+          image: gcr.io/$PROJECT_ID/$SERVICE_NAME
+          service: $SERVICE_NAME
+          project: ${{ secrets.GCR_PROJECT }}
+          credentials: ${{ secrets.GCR_SA_KEY }}
+
       - name: Deploy Docker image
         run: gcloud run deploy $PROJECT_ID --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
