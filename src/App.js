@@ -7,8 +7,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <h1>Welcome To My POC On Docker And Github Actions</h1>
-        <p className="App-link">Learn React With Shivam Sachdeva</p>
+        <h1>Welcome To My POC</h1>
+        <p className="App-link">
+          On Github Actions, Docker And GCP Container Registry
+        </p>
+        <h5>By Shivam Sachdeva</h5>
       </header>
     </div>
   );
