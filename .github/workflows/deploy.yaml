@@ -2,7 +2,7 @@ name: Deploy to container registry GCP
 on:
   push:
     branches:
-      - dev
+      - ${{ secrets.BRANCH_TO_DEPLOY}}
 
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
