@@ -8,7 +8,6 @@ env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
   RUN_REGION: asia-south1
   SERVICE_NAME: react-docker-gcp
-  CLOUD_RUN_SERVICE: poc-service
 
 jobs:
   build:
@@ -84,4 +83,4 @@ jobs:
       #       --allow-unauthenticated
 
       - name: Deploy Docker image
-        run: gcloud run deploy $CLOUD_RUN_SERVICE --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+        run: gcloud run deploy $SERVICE_NAME --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" --region "$RUN_REGION" --platform managed --allow-unauthenticated
