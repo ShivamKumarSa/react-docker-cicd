@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <h1>Welcome To My POC</h1>
+        <h1>Welcome To My POC2</h1>
         <p className="App-link">
           On Github Actions, Docker And GCP Container Registry
         </p>
