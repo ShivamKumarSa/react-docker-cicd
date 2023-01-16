@@ -83,5 +83,5 @@ jobs:
       #       --allow-unauthenticated
 
       - name: Deploy Docker image
-        run: gcloud run deploy $SERVICE_NAME --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+        run: gcloud run deploy poc-service --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
 #poc-service
