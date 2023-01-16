@@ -83,4 +83,4 @@ jobs:
       #       --allow-unauthenticated
 
       - name: Deploy Docker image
-        run: gcloud run deploy $PROJECT_ID --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+        run: gcloud run deploy ${{ secrets.GCR_CLOUD_RUN_SECRET }} --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME" --region "$RUN_REGION" --platform managed --allow-unauthenticated
