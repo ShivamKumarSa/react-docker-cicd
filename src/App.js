@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <h1>Welcome To My POC On Docker</h1>
+        <h1>Welcome To My POC On Docker And Github Actions</h1>
         <p className="App-link">Learn React With Shivam Sachdeva</p>
       </header>
     </div>
