@@ -1,14 +1,15 @@
 name: Deploy to container registry GCP
-on:
-  push:
-    branches:
-      - $BRANCH_NAME
 
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
   RUN_REGION: asia-south1
   SERVICE_NAME: react-docker-gcp
   BRANCH_NAME: dev
+
+on:
+  push:
+    branches:
+      - $BRANCH_NAME
 
 jobs:
   build:
