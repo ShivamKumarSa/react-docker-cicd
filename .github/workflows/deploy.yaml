@@ -13,12 +13,12 @@ jobs:
       - name: condition
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
-      - name: Set env BRANCH
-        run: echo "BRANCH=$(echo $GITHUB_REF_NAME)" >> $GITHUB_ENV
+      # - name: Set env BRANCH
+      #   run: echo "BRANCH=$(echo $GITHUB_REF_NAME)" >> $GITHUB_ENV
 
       - name: Set env NEED
         run: |
-          if [[ $BRANCH == 'dev' ]]; then
+          if [[ $GITHUB_REF_NAME == 'dev' ]]; then
               echo "NEED=true" >> "$GITHUB_ENV"
           else
               echo "NEED=false" >> "$GITHUB_ENV"
@@ -26,7 +26,7 @@ jobs:
 
       - name: Skip Deploy?
         if: env.NEED != 'true'
-        run: echo "Only pushing to 'dev' causes automatic deployment" | exit 1
+        run: exit 1
 
       - name: condition
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
