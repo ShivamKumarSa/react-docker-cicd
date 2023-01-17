@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: condition
-        if: github.ref.name == 'dev'
+        if: github.ref == ${{ secrets.BRANCH_TO_DEPLOY }}
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
       # - name: Set env BRANCH
@@ -19,7 +19,7 @@ jobs:
 
       - name: Set env NEED
         run: |
-          if [[ $GITHUB_REF_NAME == 'dev' ]]; then
+          if [[ $GITHUB_REF_NAME == ${{ secrets.BRANCH_TO_DEPLOY }} ]]; then
               echo "NEED=true" >> "$GITHUB_ENV"
           else
               echo "NEED=false" >> "$GITHUB_ENV"
