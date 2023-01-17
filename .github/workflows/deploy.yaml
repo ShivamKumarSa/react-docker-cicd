@@ -13,10 +13,6 @@ jobs:
       - name: Set env BRANCH
         run: echo "BRANCH=$(echo ${{ secrets.BRANCH_TO_DEPLOY }})" >> $GITHUB_ENV
 
-      # - name: condition
-      #   if: github.ref == $BRANCH
-      #   run: echo "The operating system on the runner is $GITHUB_REF_NAME"
-
       - name: Set env NEED
         run: |
           if [[ $GITHUB_REF_NAME == $BRANCH ]]; then
@@ -25,12 +21,12 @@ jobs:
               echo "NEED=false" >> "$GITHUB_ENV"
           fi
 
-      - name: condition
-        run: echo "The operating system on the runner is $GITHUB_REF_NAME"
-
       - name: Skip Deploy?
-        if: env.NEED != 'true'
-        run: exit 1
+        run: |
+          if env.NEED != 'true' ; then
+            echo "Game over!"
+            exit 1
+          fi
 
       - name: condition
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
