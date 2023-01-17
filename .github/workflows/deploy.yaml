@@ -26,7 +26,7 @@ jobs:
 
       - name: Skip Deploy?
         if: env.NEED != 'true'
-        run: echo "Only pushing to 'dev' causes automatic deployment"
+        run: echo "Only pushing to 'dev' causes automatic deployment" | exit 1
 
       - name: condition
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
