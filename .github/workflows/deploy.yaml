@@ -25,6 +25,9 @@ jobs:
               echo "NEED=false" >> "$GITHUB_ENV"
           fi
 
+      - name: condition
+        run: echo "The operating system on the runner is $GITHUB_REF_NAME"
+
       - name: Skip Deploy?
         if: env.NEED != 'true'
         run: exit 1
