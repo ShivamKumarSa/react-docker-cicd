@@ -5,13 +5,14 @@ env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
   RUN_REGION: asia-south1
   SERVICE_NAME: react-docker-gcp
+  BRANCH_NAME: ${{ secrets.BRANCH_TO_DEPLOY }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: condition
-        if: github.ref == ${{ secrets.BRANCH_TO_DEPLOY }}
+        if: github.ref == $BRANCH_NAME
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
       # - name: Set env BRANCH
@@ -19,7 +20,7 @@ jobs:
 
       - name: Set env NEED
         run: |
-          if [[ $GITHUB_REF_NAME == ${{ secrets.BRANCH_TO_DEPLOY }} ]]; then
+          if [[ $GITHUB_REF_NAME == $BRANCH_NAME ]]; then
               echo "NEED=true" >> "$GITHUB_ENV"
           else
               echo "NEED=false" >> "$GITHUB_ENV"
