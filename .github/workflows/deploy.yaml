@@ -16,17 +16,19 @@ jobs:
       - name: Set env NEED
         run: |
           if [[ $GITHUB_REF_NAME == $BRANCH ]]; then
-              echo "NEED=true" >> "$GITHUB_ENV"
+              echo "Game over!"
+              exit 1
           else
-              echo "NEED=false" >> "$GITHUB_ENV"
+              echo "Game over!"
+              exit 1
           fi
 
-      - name: Skip Deploy?
-        run: |
-          if env.NEED != 'true' ; then
-            echo "Game over!"
-            exit 1
-          fi
+      # - name: Skip Deploy?
+      #   run: |
+      #     if env.NEED != 'true' ; then
+      #       echo "Game over!"
+      #       exit 1
+      #     fi
 
       - name: condition
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
