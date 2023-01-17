@@ -11,7 +11,7 @@ function App() {
         <p className="App-link">
           On Github Actions, Docker And GCP Container Registry
         </p>
-        <h5>By Shivam Sachdeva</h5>
+        <h5>By Shivam Sachdeva...</h5>
       </header>
     </div>
   );
