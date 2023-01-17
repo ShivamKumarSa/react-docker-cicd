@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: condition
+        if: github.ref.name == 'dev'
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
       # - name: Set env BRANCH
