@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: condition
+        run: echo "The operating system on the runner is $env:RUNNER_OS."
+
       - name: Setup GCloud Auth
         id: auth
         uses: google-github-actions/auth@v0.4.0
@@ -36,5 +39,3 @@ jobs:
 
       - name: Deploy Docker image
         run: gcloud run deploy $SERVICE_NAME --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" --region "$RUN_REGION" --platform managed --allow-unauthenticated
-  on:
-    - dev
