@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: condition
-        run: echo "The operating system on the runner is $env:RUNNER_OS."
+        run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
       - name: Setup GCloud Auth
         id: auth
