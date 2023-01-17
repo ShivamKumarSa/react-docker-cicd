@@ -1,8 +1,5 @@
 name: Deploy to container registry GCP
-on:
-  push:
-    branches:
-      - dev
+on: push
 
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
@@ -39,3 +36,5 @@ jobs:
 
       - name: Deploy Docker image
         run: gcloud run deploy $SERVICE_NAME --quiet --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" --region "$RUN_REGION" --platform managed --allow-unauthenticated
+    on:
+      - dev
