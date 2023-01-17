@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: condition
-        if: ${{GITHUB_REF_NAME}} == 'dev'
+        if: ${{GITHUB_REF_NAME == 'dev'}}
         run: echo "The operating system on the runner is $GITHUB_REF_NAME"
 
       # - name: Setup GCloud Auth
